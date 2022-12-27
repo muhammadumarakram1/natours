@@ -8,6 +8,7 @@ const xss = require('xss-clean');
 const hpp = require('hpp');
 const cookieParser = require('cookie-parser');
 const compression = require('compression');
+const cors = require('cors');
 
 const AppError = require('./utils/appError');
 const tourRouter = require('./routes/tourRoutes');
@@ -23,6 +24,10 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Global Middlewares
+// For handling simple get post request
+app.use(cors());
+// For Handling put post delete etc request
+app.options('*', cors());
 // app.use(helmet());
 app.use(
   helmet.contentSecurityPolicy({
